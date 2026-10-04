@@ -359,8 +359,10 @@ class CASClientWithSAMLV1(CASClientV2, SingleLogoutMixin):
                         for v in values:
                             values_array.append(v.text)
                             attributes[at.attrib['AttributeName']] = values_array
-                    else:
+                    elif len(values) == 1:
                         attributes[at.attrib['AttributeName']] = values[0].text
+                    else:
+                        attributes[at.attrib['AttributeName']] = []
             return user, attributes, None
         finally:
             page.close()
